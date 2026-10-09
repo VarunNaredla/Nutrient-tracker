@@ -66,6 +66,7 @@ function updateDateLabel() {
     ? 'Today, ' + selectedDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })
     : selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   $('#todayDateLabel').textContent = formatted.toUpperCase();
+  $('#insightDateLabel').textContent = isToday ? 'Today' : selectedDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   $('#waterGoalLabel').textContent = ' / ' + state.goals.water + ' glasses';
   $('#prevDay').setAttribute('aria-label', 'Previous day, ' + formatted);
   $('#nextDay').setAttribute('aria-label', 'Next day, ' + formatted);
