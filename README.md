@@ -1,6 +1,6 @@
 # NutriDay — Nutrient Tracker
 
-A responsive, browser-based nutrition tracker inspired by the feature outline in this repository.
+A responsive browser-based nutrition tracker inspired by this repository’s nutrition tracking goals.
 
 ## Run it
 
@@ -8,11 +8,12 @@ Open [index.html](index.html) in a modern browser. No build step or server is re
 
 ## Features
 
-- Daily calorie summary and macro/fiber progress
-- Add food entries with meal, calories, protein, carbs, fat, and fiber
-- Water glass tracking
-- Editable daily goals
-- Today, insights, and goals views with responsive mobile navigation
-- Local browser storage; entries stay in this browser on this device
+- Track daily calories, protein, carbohydrates, fat, fiber, and water
+- Log food by meal and remove entries when needed
+- Move between dates; each day has its own food and water log
+- Set personal daily nutrient goals
+- Review a daily breakdown in the insights view
+- Responsive desktop and mobile navigation
+- Local browser storage; your data stays in this browser on this device
 
-This is a front-end demo. The date selector changes the displayed date label; food history is currently one local daily log and is not separated into historical dates. No account, cloud sync, or external food database is connected.
+The app is a front-end demo. It does not include account sign-in, cloud sync, or an external food database. It starts with a sample log for the current day; other dates begin empty.
