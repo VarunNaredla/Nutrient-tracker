@@ -26,55 +26,100 @@ Flutter generates platform runner files for the selected target. The app interfa
 
 ## Flutter learning slides
 
-These seven lessons explain the core Flutter and Dart ideas used to build the app. All code examples are Dart.
+The seven slide lessons below follow the matching experiments in order. Each section includes the slide's explanation, key idea, and Dart code example. All examples are Dart.
 
 ### EXP 1 — Dart Basics
 
-Dart is the programming language used to write Flutter apps. Types such as `int`, `double`, and `String` describe values. Use `final` for a value assigned once and `const` for a compile-time constant. Null safety makes optional values explicit with a question mark.
+Dart is the programming language used to write Flutter apps. Types describe values your code handles: `int`, `double`, `String`, `bool`, `List`, and `Map`. Use `final` for a value assigned once at runtime and `const` for a compile-time constant. A nullable type such as `String?` can hold `null`, so check for absence before using it.
+
+**Slide code — values, null safety, and a function:**
 
 ```dart
 final foodName = 'Greek yogurt';
 int calories = 280;
 double proteinGrams = 20.5;
 String? note;
+
+int addCalories(int first, int second) {
+  return first + second;
+}
+
+final total = addCalories(calories, 120);
 ```
+
+**Key idea:** Types and null safety make assumptions visible.
 
 ### EXP 2 — Flutter Widgets and Layouts
 
-Flutter builds screens from widgets. A widget tree describes how pieces fit together: `MaterialApp` configures the app, `Scaffold` provides a page structure, and widgets such as `Text`, `Row`, `Column`, and `ListView` compose the content. `Padding` adds space; `Expanded` shares the remaining room.
+Flutter builds a screen by composing small widgets into a tree. `Text`, buttons, spacing, and entire screens are widgets with focused roles. Use `Row` and `Column` for layout direction, `Padding` for space, and `ListView` for scrolling. `Expanded` and `Flexible` help children share the available room.
+
+**Slide widget tree:**
+
+```text
+MaterialApp
+└── Scaffold
+    ├── AppBar(title: Text('Today'))
+    └── ListView
+        ├── Padding
+        │   └── Text('Daily energy')
+        ├── Row
+        │   ├── CalorieSummary()
+        │   └── WaterCard()
+        └── MealList()
+```
+
+**Equivalent Dart layout:**
 
 ```dart
 Scaffold(
   appBar: AppBar(title: const Text('Today')),
   body: ListView(
-    children: const [
-      Text('Daily energy'),
-      NutrientSummary(),
-      MealList(),
+    children: [
+      const Padding(
+        padding: EdgeInsets.all(16),
+        child: Text('Daily energy'),
+      ),
+      const Row(
+        children: [
+          Expanded(child: CalorieSummary()),
+          Expanded(child: WaterCard()),
+        ],
+      ),
+      const MealList(),
     ],
   ),
 )
 ```
 
+**Key idea:** Compose widgets first; extract repeated pieces when useful.
+
 ### EXP 3 — Responsive UI
 
-Responsive Flutter layouts adapt to available space. `LayoutBuilder` exposes the width available to a section, so the app can stack cards on narrow screens and place them in columns on wider screens. Use `Flexible`, `Wrap`, and scrollable widgets to prevent overflow.
+Responsive layouts use the available space to decide how content should appear. `LayoutBuilder` provides the width available to a subtree, including inside split panes. A compact screen can stack cards, while a wider screen can show them in columns. Use `Expanded`, `Flexible`, `Wrap`, and scroll views to prevent overflow when text or labels grow.
+
+**Slide code — choose the grid columns from width:**
 
 ```dart
 LayoutBuilder(
   builder: (context, constraints) {
     final columns = constraints.maxWidth >= 720 ? 2 : 1;
+
     return GridView.count(
       crossAxisCount: columns,
+      shrinkWrap: true,
       children: nutrientCards,
     );
   },
 )
 ```
 
+**Key idea:** Respond to constraints, not a device model.
+
 ### EXP 4 — Navigation and Named Routes
 
-Named routes give destinations stable names. Register route names in `MaterialApp`, then use `Navigator.pushNamed` to open a destination and `Navigator.pop` to return. Keep any route arguments explicit and validate them at the destination.
+Named routes give each destination a stable name. `MaterialApp` maps route names such as `/` and `/insights` to page builders. `Navigator.pushNamed` opens a destination, and `Navigator.pop` returns to the previous page. Define and validate any arguments that a destination expects.
+
+**Slide code — register routes and navigate:**
 
 ```dart
 MaterialApp(
@@ -83,12 +128,19 @@ MaterialApp(
     '/': (_) => const TodayPage(),
     '/insights': (_) => const InsightsPage(),
   },
-)
+);
+
+// Open the Insights page from a button callback:
+Navigator.pushNamed(context, '/insights');
 ```
+
+**Key idea:** Route names separate a destination from the button that opens it.
 
 ### EXP 5 — Stateful and Stateless Widgets + State Management
 
-A `StatelessWidget` renders the data it receives. A `StatefulWidget` owns local values that change over time; calling `setState` schedules a rebuild. Values shared by multiple screens belong in a shared state model, such as a `ChangeNotifier`. Persist data separately so it survives app restarts.
+Use a `StatelessWidget` when a widget renders the inputs it receives and owns no changing state. A `StatefulWidget` can hold local state, such as a selected tab; calling `setState` schedules a rebuild. Move values used across screens into a shared model or state layer that notifies listeners.
+
+**Slide code — local and shared state:**
 
 ```dart
 setState(() {
@@ -105,9 +157,13 @@ class Goals extends ChangeNotifier {
 }
 ```
 
+**Key idea:** Keep state at the lowest level that needs to share it.
+
 ### EXP 6 — Custom Widgets and Themes
 
-Extract a custom widget when it makes a repeated piece of interface easier to understand or reuse. Named parameters make its inputs clear. Configure shared colors and typography in `ThemeData` and `ColorScheme` so the app stays visually consistent.
+Extract a custom widget when it makes repeated interface elements clearer or reusable. Named parameters make its inputs clear at the call site. Use `ThemeData` and `ColorScheme` to keep colors and text styles consistent across screens.
+
+**Slide code — reusable nutrient widget:**
 
 ```dart
 class NutrientTile extends StatelessWidget {
@@ -122,17 +178,33 @@ class NutrientTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ListTile(
-    title: Text(label),
-    trailing: Text('${value.toStringAsFixed(0)} g'),
-  );
+        title: Text(label),
+        trailing: Text('${value.toStringAsFixed(0)} g'),
+      );
 }
 ```
 
+**Key idea:** Extract a widget when it improves reuse or clarity.
+
 ### EXP 7 — Forms, Validation, and Error Handling
 
-Use a `Form` and `GlobalKey<FormState>` to validate input before saving. Field validators should explain how to correct invalid values. Saving data is asynchronous work: handle failures with `try`/`catch`, keep the user's input visible, and provide a clear retry or next step.
+Use a `Form` and `GlobalKey<FormState>` to validate input before saving. Field validators should explain what needs fixing, with the message next to the invalid field. Saving data is asynchronous work: use `try`/`catch` for storage or network failures, keep the user's input visible, and offer a retry.
+
+**Slide code — validate a field and handle a failed save:**
 
 ```dart
+final formKey = GlobalKey<FormState>();
+
+TextFormField(
+  decoration: const InputDecoration(
+    labelText: 'Food name',
+  ),
+  validator: (value) =>
+      value == null || value.trim().isEmpty
+          ? 'Enter a food name'
+          : null,
+);
+
 if (formKey.currentState!.validate()) {
   try {
     await repository.save(entry);
@@ -141,6 +213,8 @@ if (formKey.currentState!.validate()) {
   }
 }
 ```
+
+**Key idea:** Validation guards input; error handling covers failed work.
 
 ## Project files
 
