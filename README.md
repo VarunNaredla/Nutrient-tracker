@@ -29,7 +29,9 @@ Flutter generates platform runner files for the selected target. The app interfa
 The seven slide lessons below follow the matching experiments in order. Each section includes the slide's explanation, key idea, and Dart code example. All examples are Dart.
 
 ### EXP 1 — Dart Basics
-\n![Experiment 1 slide: Dart Basics](docs/slides/exp-01.jpg)\n
+
+![Experiment 1 slide: Dart Basics](docs/slides/exp-01.jpg)
+
 Dart is the programming language used to write Flutter apps. Types describe values your code handles: `int`, `double`, `String`, `bool`, `List`, and `Map`. Use `final` for a value assigned once at runtime and `const` for a compile-time constant. A nullable type such as `String?` can hold `null`, so check for absence before using it.
 
 **Slide code — values, null safety, and a function:**
@@ -50,7 +52,9 @@ final total = addCalories(calories, 120);
 **Key idea:** Types and null safety make assumptions visible.
 
 ### EXP 2 — Flutter Widgets and Layouts
-\n![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.jpg)\n
+
+![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.jpg)
+
 Flutter builds a screen by composing small widgets into a tree. `Text`, buttons, spacing, and entire screens are widgets with focused roles. Use `Row` and `Column` for layout direction, `Padding` for space, and `ListView` for scrolling. `Expanded` and `Flexible` help children share the available room.
 
 **Slide widget tree:**
@@ -94,7 +98,9 @@ Scaffold(
 **Key idea:** Compose widgets first; extract repeated pieces when useful.
 
 ### EXP 3 — Responsive UI
-\n![Experiment 3 slide: Responsive UI](docs/slides/exp-03.jpg)\n
+
+![Experiment 3 slide: Responsive UI](docs/slides/exp-03.jpg)
+
 Responsive layouts use the available space to decide how content should appear. `LayoutBuilder` provides the width available to a subtree, including inside split panes. A compact screen can stack cards, while a wider screen can show them in columns. Use `Expanded`, `Flexible`, `Wrap`, and scroll views to prevent overflow when text or labels grow.
 
 **Slide code — choose the grid columns from width:**
@@ -116,7 +122,9 @@ LayoutBuilder(
 **Key idea:** Respond to constraints, not a device model.
 
 ### EXP 4 — Navigation and Named Routes
-\n![Experiment 4 slide: Navigation and Named Routes](docs/slides/exp-04.jpg)\n
+
+![Experiment 4 slide: Navigation and Named Routes](docs/slides/exp-04.jpg)
+
 Named routes give each destination a stable name. `MaterialApp` maps route names such as `/` and `/insights` to page builders. `Navigator.pushNamed` opens a destination, and `Navigator.pop` returns to the previous page. Define and validate any arguments that a destination expects.
 
 **Slide code — register routes and navigate:**
@@ -137,7 +145,9 @@ Navigator.pushNamed(context, '/insights');
 **Key idea:** Route names separate a destination from the button that opens it.
 
 ### EXP 5 — Stateful and Stateless Widgets + State Management
-\n![Experiment 5 slide: Stateful and Stateless Widgets + State Management](docs/slides/exp-05.jpg)\n
+
+![Experiment 5 slide: Stateful and Stateless Widgets + State Management](docs/slides/exp-05.jpg)
+
 Use a `StatelessWidget` when a widget renders the inputs it receives and owns no changing state. A `StatefulWidget` can hold local state, such as a selected tab; calling `setState` schedules a rebuild. Move values used across screens into a shared model or state layer that notifies listeners.
 
 **Slide code — local and shared state:**
@@ -160,7 +170,9 @@ class Goals extends ChangeNotifier {
 **Key idea:** Keep state at the lowest level that needs to share it.
 
 ### EXP 6 — Custom Widgets and Themes
-\n![Experiment 6 slide: Custom Widgets and Themes](docs/slides/exp-06.jpg)\n
+
+![Experiment 6 slide: Custom Widgets and Themes](docs/slides/exp-06.jpg)
+
 Extract a custom widget when it makes repeated interface elements clearer or reusable. Named parameters make its inputs clear at the call site. Use `ThemeData` and `ColorScheme` to keep colors and text styles consistent across screens.
 
 **Slide code — reusable nutrient widget:**
@@ -187,7 +199,9 @@ class NutrientTile extends StatelessWidget {
 **Key idea:** Extract a widget when it improves reuse or clarity.
 
 ### EXP 7 — Forms, Validation, and Error Handling
-\n![Experiment 7 slide: Forms, Validation, and Error Handling](docs/slides/exp-07.jpg)\n
+
+![Experiment 7 slide: Forms, Validation, and Error Handling](docs/slides/exp-07.jpg)
+
 Use a `Form` and `GlobalKey<FormState>` to validate input before saving. Field validators should explain what needs fixing, with the message next to the invalid field. Saving data is asynchronous work: use `try`/`catch` for storage or network failures, keep the user's input visible, and offer a retry.
 
 **Slide code — validate a field and handle a failed save:**
