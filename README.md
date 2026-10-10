@@ -1,19 +1,28 @@
 # NutriDay — Nutrient Tracker
 
-A responsive browser-based nutrition tracker inspired by this repository’s nutrition tracking goals.
+NutriDay is a Flutter app written in Dart for tracking daily food, nutrients, water, and personal goals.
 
-## Run it
+## Run the app
 
-Open [index.html](index.html) in a modern browser. No build step or server is required.
+1. Install the Flutter SDK.
+2. From the repository root, generate platform runner files for the targets you want, for example: `flutter create --platforms=android,ios,web .`.
+3. Run `flutter pub get`.
+4. Start an available target with `flutter run`.
 
 ## Features
 
-- Track daily calories, protein, carbohydrates, fat, fiber, and water
-- Log food by meal and remove entries when needed
-- Move between dates; each day has its own food and water log
-- Set personal daily nutrient goals
-- Review a daily breakdown in the insights view
-- Responsive desktop and mobile navigation
-- Local browser storage; your data stays in this browser on this device
+- Track calories, protein, carbohydrates, fat, fiber, and water.
+- Add and remove food entries by meal.
+- Move between daily logs; each date keeps its own food and water entries.
+- Set personal daily nutrient goals.
+- Review progress in the insights view.
+- Save goals and daily logs locally with shared_preferences.
 
-The app is a front-end demo. It does not include account sign-in, cloud sync, or an external food database. It starts with a sample log for the current day; other dates begin empty.
+The app is local only. It does not include account sign-in, cloud sync, or an external food database. The first launch starts with a sample log for today.
+
+## Project structure
+
+- `lib/main.dart` contains the Flutter application, data models, screens, and local persistence.
+- `pubspec.yaml` defines the Flutter project and Dart dependencies.
+
+The original browser implementation has been replaced. The UI and application logic are Flutter widgets and Dart; Flutter can generate any platform host scaffolding required by your selected targets.
