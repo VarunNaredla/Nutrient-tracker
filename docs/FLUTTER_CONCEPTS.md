@@ -1,18 +1,26 @@
-# NutriDay Flutter implementation
+# Flutter and Dart Concepts
 
-This repository now contains the Flutter implementation of the nutrient tracker.
+This repository is a Flutter app written in Dart. Its application entry point is `lib/main.dart`; that file starts the app with `runApp`, configures `MaterialApp`, and builds the tracker screens as Flutter widgets.
 
-## Architecture
+## Implementation overview
 
-The Flutter application starts in lib/main.dart. The app uses Material widgets and Dart state to render the dashboard, insights, and goals destinations. Daily food entries, water counts, and nutrient goals are serialized as JSON and stored on-device with shared_preferences.
+- Material widgets provide navigation, forms, cards, and responsive layouts.
+- Dart state holds daily meals, water counts, selected dates, and nutrient goals.
+- The app serializes that state and stores it locally with `shared_preferences`.
+- Food and goal forms validate user input before changing the saved state.
+- Storage failures are reported in the interface so changes are not silently treated as saved.
+- The original browser implementation has been removed; the app has no JavaScript, CSS, or HTML source files.
 
-## Current behavior
+## Learning series
 
-- The dashboard shows daily calorie progress, macro and fiber progress, water intake, and food entries.
-- The date controls switch between independent daily logs.
-- Food can be added to a meal and removed from the journal.
-- Goals can be edited for calories, protein, carbohydrates, fat, fiber, and water.
-- Insights summarize the selected day's values against its targets.
-- The first launch includes a sample log for the current day.
+The README contains the seven Flutter learning slides with explanations and Dart examples:
 
-The app does not include an account, cloud synchronization, or a food database. Platform launch folders can be generated for the development machine with Flutter tooling when needed.
+1. Dart basics
+2. Flutter widgets and layouts
+3. Responsive UI
+4. Navigation and named routes
+5. Stateful and stateless widgets with state management
+6. Custom widgets and themes
+7. Forms, validation, and error handling
+
+Open [the Flutter learning slides](../README.md#flutter-learning-slides) for the lesson notes and examples.

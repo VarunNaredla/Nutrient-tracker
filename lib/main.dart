@@ -112,9 +112,29 @@ class _TrackerHomeState extends State<TrackerHome> {
     if (mounted) setState(() => _loading = false);
   }
 
-  Future<void> _save() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_storageKey, jsonEncode({'goals': _goals, 'days': _days}));
+  Future<bool> _save() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final saved = await prefs.setString(
+        _storageKey,
+        jsonEncode({'goals': _goals, 'days': _days}),
+      );
+      if (!saved) throw StateError('Local storage did not confirm the save.');
+      return true;
+    } catch (error) {
+      debugPrint('NutriDay could not save local data: $error');
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: const Text('Could not save locally. Your change is still visible for now.'),
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 5),
+            action: SnackBarAction(label: 'Retry', onPressed: () => _save()),
+          ),
+        );
+      }
+      return false;
+    }
   }
 
   String get _dateLabel {
@@ -137,7 +157,7 @@ class _TrackerHomeState extends State<TrackerHome> {
       return;
     }
     setState(() => _day['water'] = (_day['water'] as int? ?? 0) + 1);
-    await _save();
+    if (!await _save()) return;
     _notify('Water logged.');
   }
 
@@ -206,7 +226,7 @@ class _TrackerHomeState extends State<TrackerHome> {
     }
     if (result == null || !mounted) return;
     setState(() => (_day['meals'] as List<dynamic>).add(result));
-    await _save();
+    if (!await _save()) return;
     _notify('Added to your food journal.');
   }
 
@@ -215,22 +235,26 @@ class _TrackerHomeState extends State<TrackerHome> {
     keyboardType: const TextInputType.numberWithOptions(decimal: true),
     decoration: InputDecoration(labelText: label),
     validator: (value) {
-      if (requiredField && (value == null || value.isEmpty)) return 'Enter a value';
-      final number = double.tryParse(value ?? '');
-      if (number == null || number < 0) return requiredField ? 'Enter a valid number' : null;
+      final input = (value ?? '').trim();
+      if (input.isEmpty) return requiredField ? 'Enter a value' : null;
+      final number = double.tryParse(input);
+      if (number == null) return 'Enter a valid number';
+      if (number < 0) return 'Value cannot be negative';
       return null;
     },
   );
 
   Future<void> _removeFood(int index) async {
     setState(() => (_day['meals'] as List<dynamic>).removeAt(index));
-    await _save();
+    if (!await _save()) return;
     _notify('Food removed from your journal.');
   }
 
   Future<void> _editGoals() async {
+    final formKey = GlobalKey<FormState>();
     final controllers = <String, TextEditingController>{
-      for (final entry in _goals.entries) entry.key: TextEditingController(text: entry.value.toStringAsFixed(0)),
+      for (final entry in _goals.entries)
+        entry.key: TextEditingController(text: entry.value.toStringAsFixed(0)),
     };
     final result = await showDialog<Map<String, double>>(
       context: context,
@@ -238,28 +262,36 @@ class _TrackerHomeState extends State<TrackerHome> {
         title: const Text('Your daily goals'),
         content: SizedBox(
           width: 420,
-          child: SingleChildScrollView(
-            child: Column(mainAxisSize: MainAxisSize.min, children: [
-              _goalEditor(controllers['calories']!, 'Calories', 'kcal'),
-              _goalEditor(controllers['protein']!, 'Protein', 'g'),
-              _goalEditor(controllers['carbs']!, 'Carbohydrates', 'g'),
-              _goalEditor(controllers['fat']!, 'Fat', 'g'),
-              _goalEditor(controllers['fiber']!, 'Fiber', 'g'),
-              _goalEditor(controllers['water']!, 'Water', 'glasses'),
-            ]),
+          child: Form(
+            key: formKey,
+            child: SingleChildScrollView(
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                _goalEditor(controllers['calories']!, 'Calories', 'kcal'),
+                _goalEditor(controllers['protein']!, 'Protein', 'g'),
+                _goalEditor(controllers['carbs']!, 'Carbohydrates', 'g'),
+                _goalEditor(controllers['fat']!, 'Fat', 'g'),
+                _goalEditor(controllers['fiber']!, 'Fiber', 'g'),
+                _goalEditor(controllers['water']!, 'Water', 'glasses'),
+              ]),
+            ),
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Cancel')),
-          FilledButton(onPressed: () {
-            final updated = <String, double>{};
-            for (final entry in controllers.entries) {
-              final value = double.tryParse(entry.value.text);
-              if (value == null || value <= 0) return;
-              updated[entry.key] = value;
-            }
-            Navigator.pop(dialogContext, updated);
-          }, child: const Text('Save goals')),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext),
+            child: const Text('Cancel'),
+          ),
+          FilledButton(
+            onPressed: () {
+              if (!(formKey.currentState?.validate() ?? false)) return;
+              final updated = <String, double>{
+                for (final entry in controllers.entries)
+                  entry.key: double.parse(entry.value.text.trim()),
+              };
+              Navigator.pop(dialogContext, updated);
+            },
+            child: const Text('Save goals'),
+          ),
         ],
       ),
     );
@@ -268,13 +300,25 @@ class _TrackerHomeState extends State<TrackerHome> {
     }
     if (result == null || !mounted) return;
     setState(() => _goals = result);
-    await _save();
+    if (!await _save()) return;
     _notify('Your goals have been updated.');
   }
 
   Widget _goalEditor(TextEditingController controller, String label, String unit) => Padding(
     padding: const EdgeInsets.only(bottom: 12),
-    child: TextField(controller: controller, keyboardType: TextInputType.number, decoration: InputDecoration(labelText: label, suffixText: unit)),
+    child: TextFormField(
+      controller: controller,
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      decoration: InputDecoration(labelText: label, suffixText: unit),
+      validator: (value) {
+        final input = (value ?? '').trim();
+        if (input.isEmpty) return 'Enter a goal';
+        final number = double.tryParse(input);
+        if (number == null) return 'Enter a valid number';
+        if (number <= 0) return 'Goal must be greater than zero';
+        return null;
+      },
+    ),
   );
 
   @override
