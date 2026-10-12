@@ -26,209 +26,168 @@ Flutter generates platform runner files for the selected target. The app interfa
 
 ## Flutter learning slides
 
-The seven slide lessons below follow the matching experiments in order. Each section includes the slide's explanation, key idea, and Dart code example. All examples are Dart.
+The seven lessons below follow the Flutter app in `lib/main.dart`. Each slide introduces the concept with a NutriDay example; the notes below the image explain the same idea and show related project code.
 
 ### EXP 1 — Dart Basics
 
-![Experiment 1 slide: Dart Basics](docs/slides/exp-01.jpg)
+![Experiment 1 slide: Dart Basics](docs/slides/exp-01.png)
 
-Dart is the programming language used to write Flutter apps. Types describe values your code handles: `int`, `double`, `String`, `bool`, `List`, and `Map`. Use `final` for a value assigned once at runtime and `const` for a compile-time constant. A nullable type such as `String?` can hold `null`, so check for absence before using it.
+Dart types make NutriDay's data clear: goals use `Map<String, double>`, meal entries use `Map<String, dynamic>`, and lists hold meals. `const` marks fixed default goals; `final` marks values assigned once at runtime. `_value` handles a missing or non-numeric nutrient safely.
 
-**Slide code — values, null safety, and a function:**
+**Project example — typed goals and a null-safe nutrient read:**
 
 ```dart
-final foodName = 'Greek yogurt';
-int calories = 280;
-double proteinGrams = 20.5;
-String? note;
+const _defaultGoals = <String, double>{
+  'calories': 2000,
+  'protein': 100,
+};
 
-int addCalories(int first, int second) {
-  return first + second;
-}
-
-final total = addCalories(calories, 120);
+double _value(Map<String, dynamic> meal, String key) =>
+    (meal[key] as num?)?.toDouble() ?? 0;
 ```
 
 **Key idea:** Types and null safety make assumptions visible.
 
 ### EXP 2 — Flutter Widgets and Layouts
 
-![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.jpg)
+![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.png)
 
-Flutter builds a screen by composing small widgets into a tree. `Text`, buttons, spacing, and entire screens are widgets with focused roles. Use `Row` and `Column` for layout direction, `Padding` for space, and `ListView` for scrolling. `Expanded` and `Flexible` help children share the available room.
+NutriDay builds its screen with Flutter widgets. `Scaffold` holds the app bar and body; `SafeArea` protects content from system areas; the dashboard uses a scrolling `ListView` and focused card and row builders for calories, water, nutrients and meals.
 
-**Slide widget tree:**
-
-```text
-MaterialApp
-└── Scaffold
-    ├── AppBar(title: Text('Today'))
-    └── ListView
-        ├── Padding
-        │   └── Text('Daily energy')
-        ├── Row
-        │   ├── CalorieSummary()
-        │   └── WaterCard()
-        └── MealList()
-```
-
-**Equivalent Dart layout:**
+**Project example — the app frame and selected screen:**
 
 ```dart
 Scaffold(
-  appBar: AppBar(title: const Text('Today')),
-  body: ListView(
-    children: [
-      const Padding(
-        padding: EdgeInsets.all(16),
-        child: Text('Daily energy'),
-      ),
-      const Row(
-        children: [
-          Expanded(child: CalorieSummary()),
-          Expanded(child: WaterCard()),
-        ],
-      ),
-      const MealList(),
-    ],
+  appBar: AppBar(title: const Text('nutriday')),
+  body: SafeArea(
+    child: _page == 0
+        ? _dashboard()
+        : _page == 1 ? _insights() : _goalsPage(),
   ),
 )
 ```
 
-**Key idea:** Compose widgets first; extract repeated pieces when useful.
+**Key idea:** Compose the screen from widgets with clear roles.
 
 ### EXP 3 — Responsive UI
 
-![Experiment 3 slide: Responsive UI](docs/slides/exp-03.jpg)
+![Experiment 3 slide: Responsive UI](docs/slides/exp-03.png)
 
-Responsive layouts use the available space to decide how content should appear. `LayoutBuilder` provides the width available to a subtree, including inside split panes. A compact screen can stack cards, while a wider screen can show them in columns. Use `Expanded`, `Flexible`, `Wrap`, and scroll views to prevent overflow when text or labels grow.
+`LayoutBuilder` gives the dashboard its available width. NutriDay places the calorie and water cards side by side when the width is above 680 pixels and stacks them below that breakpoint. The nutrient grid also changes between one, two and four columns.
 
-**Slide code — choose the grid columns from width:**
+**Project example — switch the calorie and water layout:**
 
 ```dart
-LayoutBuilder(
-  builder: (context, constraints) {
-    final columns = constraints.maxWidth >= 720 ? 2 : 1;
+LayoutBuilder(builder: (context, constraints) {
+  final wide = constraints.maxWidth > 680;
+  return Flex(
+    direction: wide ? Axis.horizontal : Axis.vertical,
+    children: [
+      if (wide) Expanded(flex: 3, child: _calorieCard())
+      else _calorieCard(),
+      if (wide) Expanded(flex: 2, child: _waterCard())
+      else _waterCard(),
+    ],
+  );
+})
+```
 
-    return GridView.count(
-      crossAxisCount: columns,
-      shrinkWrap: true,
-      children: nutrientCards,
-    );
-  },
+**Key idea:** Respond to constraints, not a device name.
+
+### EXP 4 — Navigation
+
+![Experiment 4 slide: Navigation in NutriDay](docs/slides/exp-04.png)
+
+NutriDay uses a bottom `NavigationBar` for Today, Insights and My goals. The selected destination is stored in `_page`; `onDestinationSelected` calls `setState`, and the body builds the matching screen. This is the navigation pattern used in the project.
+
+**Project example — update the selected destination:**
+
+```dart
+int _page = 0;
+
+NavigationBar(
+  selectedIndex: _page,
+  onDestinationSelected: (index) =>
+      setState(() => _page = index),
+  destinations: const [
+    NavigationDestination(icon: Icon(Icons.home_outlined), label: 'Today'),
+    NavigationDestination(icon: Icon(Icons.bar_chart), label: 'Insights'),
+    NavigationDestination(icon: Icon(Icons.flag_outlined), label: 'My goals'),
+  ],
 )
 ```
 
-**Key idea:** Respond to constraints, not a device model.
+**Key idea:** Keep navigation state tied to the selected destination.
 
-### EXP 4 — Navigation and Named Routes
+### EXP 5 — Stateful and Stateless Widgets
 
-![Experiment 4 slide: Navigation and Named Routes](docs/slides/exp-04.jpg)
+![Experiment 5 slide: State and State Management](docs/slides/exp-05.png)
 
-Named routes give each destination a stable name. `MaterialApp` maps route names such as `/` and `/insights` to page builders. `Navigator.pushNamed` opens a destination, and `Navigator.pop` returns to the previous page. Define and validate any arguments that a destination expects.
+`NutriDayApp` is a `StatelessWidget` because it configures the app theme and does not own changing screen data. `TrackerHome` is a `StatefulWidget`; its state holds the selected tab, date, daily meal logs and nutrient goals. `setState` rebuilds the screen after an update, and `_save` writes data to local preferences.
 
-**Slide code — register routes and navigate:**
-
-```dart
-MaterialApp(
-  initialRoute: '/',
-  routes: {
-    '/': (_) => const TodayPage(),
-    '/insights': (_) => const InsightsPage(),
-  },
-);
-
-// Open the Insights page from a button callback:
-Navigator.pushNamed(context, '/insights');
-```
-
-**Key idea:** Route names separate a destination from the button that opens it.
-
-### EXP 5 — Stateful and Stateless Widgets + State Management
-
-![Experiment 5 slide: Stateful and Stateless Widgets + State Management](docs/slides/exp-05.jpg)
-
-Use a `StatelessWidget` when a widget renders the inputs it receives and owns no changing state. A `StatefulWidget` can hold local state, such as a selected tab; calling `setState` schedules a rebuild. Move values used across screens into a shared model or state layer that notifies listeners.
-
-**Slide code — local and shared state:**
+**Project example — the stateful screen and its changing data:**
 
 ```dart
-setState(() {
-  selectedMeal = 'Lunch';
-});
-
-class Goals extends ChangeNotifier {
-  int calories = 2000;
-
-  void updateCalories(int value) {
-    calories = value;
-    notifyListeners();
-  }
-}
-```
-
-**Key idea:** Keep state at the lowest level that needs to share it.
-
-### EXP 6 — Custom Widgets and Themes
-
-![Experiment 6 slide: Custom Widgets and Themes](docs/slides/exp-06.jpg)
-
-Extract a custom widget when it makes repeated interface elements clearer or reusable. Named parameters make its inputs clear at the call site. Use `ThemeData` and `ColorScheme` to keep colors and text styles consistent across screens.
-
-**Slide code — reusable nutrient widget:**
-
-```dart
-class NutrientTile extends StatelessWidget {
-  const NutrientTile({
-    required this.label,
-    required this.value,
-    super.key,
-  });
-
-  final String label;
-  final double value;
-
+class TrackerHome extends StatefulWidget {
+  const TrackerHome({super.key});
   @override
-  Widget build(BuildContext context) => ListTile(
-        title: Text(label),
-        trailing: Text('${value.toStringAsFixed(0)} g'),
-      );
+  State<TrackerHome> createState() => _TrackerHomeState();
 }
+
+int _page = 0;
+Map<String, double> _goals = Map<String, double>.from(_defaultGoals);
+Map<String, Map<String, dynamic>> _days = {};
 ```
 
-**Key idea:** Extract a widget when it improves reuse or clarity.
+**Key idea:** Keep state where the screens that need it can share it.
 
-### EXP 7 — Forms, Validation, and Error Handling
+### EXP 6 — Reusable Widgets and Themes
 
-![Experiment 7 slide: Forms, Validation, and Error Handling](docs/slides/exp-07.jpg)
+![Experiment 6 slide: Reusable Widgets and Themes](docs/slides/exp-06.png)
 
-Use a `Form` and `GlobalKey<FormState>` to validate input before saving. Field validators should explain what needs fixing, with the message next to the invalid field. Saving data is asynchronous work: use `try`/`catch` for storage or network failures, keep the user's input visible, and offer a retry.
+The `_nutrientCard` builder uses the same layout for protein, carbohydrates, fat and fiber. Its arguments provide the label, data key, unit, color and icon. `ThemeData` sets NutriDay's shared green color scheme, paper background and card style.
 
-**Slide code — validate a field and handle a failed save:**
+**Project example — reuse one card and share theme colors:**
 
 ```dart
-final formKey = GlobalKey<FormState>();
+_nutrientCard(
+  'Protein', 'protein', 'g',
+  const Color(0xFF558361), Icons.fitness_center,
+)
 
-TextFormField(
-  decoration: const InputDecoration(
-    labelText: 'Food name',
-  ),
-  validator: (value) =>
-      value == null || value.trim().isEmpty
-          ? 'Enter a food name'
-          : null,
-);
+ThemeData(
+  colorScheme: ColorScheme.fromSeed(seedColor: _green),
+  scaffoldBackgroundColor: _paper,
+  cardTheme: CardThemeData(...),
+)
+```
 
-if (formKey.currentState!.validate()) {
-  try {
-    await repository.save(entry);
-  } catch (_) {
-    showError('Could not save. Try again.');
-  }
+**Key idea:** Reuse a widget when it improves clarity and consistency.
+
+### EXP 7 — Forms, Validation and Error Handling
+
+![Experiment 7 slide: Forms, Validation and Errors](docs/slides/exp-07.png)
+
+The Add food form requires a food name and checks numeric fields before adding a meal. `_save` catches local storage errors, displays a message and offers a Retry action, so a failed save is not silently treated as successful.
+
+**Project example — validate the food name and guard local saves:**
+
+```dart
+validator: (value) => value == null || value.trim().isEmpty
+    ? 'Enter a food name' : null,
+
+if (!(formKey.currentState?.validate() ?? false)) return;
+
+try {
+  final prefs = await SharedPreferences.getInstance();
+  final saved = await prefs.setString(_storageKey, jsonEncode(data));
+  if (!saved) throw StateError('Local storage did not confirm the save.');
+} catch (error) {
+  // Show the save message and a Retry action.
 }
 ```
 
-**Key idea:** Validation guards input; error handling covers failed work.
+**Key idea:** Validation guards input; error handling covers failed saves.
 
 ## Project files
 
