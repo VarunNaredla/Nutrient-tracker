@@ -180,7 +180,7 @@ if (!(formKey.currentState?.validate() ?? false)) return;
 
 try {
   final prefs = await SharedPreferences.getInstance();
-  final saved = await prefs.setString(_storageKey, jsonEncode(data));
+  final saved = await prefs.setString(\n      _storageKey, jsonEncode({'goals': _goals, 'days': _days}),\n  );
   if (!saved) throw StateError('Local storage did not confirm the save.');
 } catch (error) {
   // Show the save message and a Retry action.
