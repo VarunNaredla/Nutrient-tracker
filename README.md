@@ -30,7 +30,7 @@ The seven lessons below follow the Flutter app in `lib/main.dart`. Each slide in
 
 ### EXP 1 — Dart Basics
 
-![Experiment 1 slide: Dart Basics](docs/slides/exp-01.png)
+![Experiment 1 slide: Dart Basics](docs/slides/exp-01.jpg)
 
 Dart types make NutriDay's data clear: goals use `Map<String, double>`, meal entries use `Map<String, dynamic>`, and lists hold meals. `const` marks fixed default goals; `final` marks values assigned once at runtime. `_value` handles a missing or non-numeric nutrient safely.
 
@@ -50,7 +50,7 @@ double _value(Map<String, dynamic> meal, String key) =>
 
 ### EXP 2 — Flutter Widgets and Layouts
 
-![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.png)
+![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.jpg)
 
 NutriDay builds its screen with Flutter widgets. `Scaffold` holds the app bar and body; `SafeArea` protects content from system areas; the dashboard uses a scrolling `ListView` and focused card and row builders for calories, water, nutrients and meals.
 
@@ -71,7 +71,7 @@ Scaffold(
 
 ### EXP 3 — Responsive UI
 
-![Experiment 3 slide: Responsive UI](docs/slides/exp-03.png)
+![Experiment 3 slide: Responsive UI](docs/slides/exp-03.jpg)
 
 `LayoutBuilder` gives the dashboard its available width. NutriDay places the calorie and water cards side by side when the width is above 680 pixels and stacks them below that breakpoint. The nutrient grid also changes between one, two and four columns.
 
@@ -96,7 +96,7 @@ LayoutBuilder(builder: (context, constraints) {
 
 ### EXP 4 — Navigation
 
-![Experiment 4 slide: Navigation in NutriDay](docs/slides/exp-04.png)
+![Experiment 4 slide: Navigation in NutriDay](docs/slides/exp-04.jpg)
 
 NutriDay uses a bottom `NavigationBar` for Today, Insights and My goals. The selected destination is stored in `_page`; `onDestinationSelected` calls `setState`, and the body builds the matching screen. This is the navigation pattern used in the project.
 
@@ -121,7 +121,7 @@ NavigationBar(
 
 ### EXP 5 — Stateful and Stateless Widgets
 
-![Experiment 5 slide: State and State Management](docs/slides/exp-05.png)
+![Experiment 5 slide: State and State Management](docs/slides/exp-05.jpg)
 
 `NutriDayApp` is a `StatelessWidget` because it configures the app theme and does not own changing screen data. `TrackerHome` is a `StatefulWidget`; its state holds the selected tab, date, daily meal logs and nutrient goals. `setState` rebuilds the screen after an update, and `_save` writes data to local preferences.
 
@@ -143,7 +143,7 @@ Map<String, Map<String, dynamic>> _days = {};
 
 ### EXP 6 — Reusable Widgets and Themes
 
-![Experiment 6 slide: Reusable Widgets and Themes](docs/slides/exp-06.png)
+![Experiment 6 slide: Reusable Widgets and Themes](docs/slides/exp-06.jpg)
 
 The `_nutrientCard` builder uses the same layout for protein, carbohydrates, fat and fiber. Its arguments provide the label, data key, unit, color and icon. `ThemeData` sets NutriDay's shared green color scheme, paper background and card style.
 
@@ -166,7 +166,7 @@ ThemeData(
 
 ### EXP 7 — Forms, Validation and Error Handling
 
-![Experiment 7 slide: Forms, Validation and Errors](docs/slides/exp-07.png)
+![Experiment 7 slide: Forms, Validation and Errors](docs/slides/exp-07.jpg)
 
 The Add food form requires a food name and checks numeric fields before adding a meal. `_save` catches local storage errors, displays a message and offers a Retry action, so a failed save is not silently treated as successful.
 
