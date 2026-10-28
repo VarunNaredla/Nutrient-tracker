@@ -12,35 +12,35 @@ The images show illustrative output for the matching runnable [experiment files]
 
 ### Experiment 1 — Dart Basics
 
-![Experiment 1 output: Greek yogurt, 280 calories, 20.5 grams of protein, no note, and 400 total calories](outputs/exp1_output.svg)
+![Experiment 1 output: Greek yogurt, 280 calories, 20.5 grams of protein, no note, and 400 total calories](docs/slides/readme/exp-01.jpg)
 
 ### Experiment 2 — Flutter Widgets and Layouts
 
-![Experiment 2 output: NutriDay dashboard using Row, Column, and Stack](outputs/exp2_output.svg)
+![Experiment 2 output: NutriDay dashboard using Row, Column, and Stack](docs/slides/readme/exp-02.jpg)
 
 ### Experiment 3 — Responsive UI
 
-![Experiment 3 output: nutrient cards arranged for compact, tablet, and desktop widths](outputs/exp3_output.svg)
+![Experiment 3 output: nutrient cards arranged for compact, tablet, and desktop widths](docs/slides/readme/exp-03.jpg)
 
 ### Experiment 4 — Navigation and Named Routes
 
-![Experiment 4 output: navigation between Today and Insights](outputs/exp4_output.svg)
+![Experiment 4 output: navigation between Today and Insights](docs/slides/readme/exp-04.jpg)
 
 ### Experiment 5 — Stateful & Stateless Widgets + State Management
 
-![Experiment 5 output: local water counter and a shared calorie goal](outputs/exp5_output.svg)
+![Experiment 5 output: local water counter and a shared calorie goal](docs/slides/readme/exp-05.jpg)
 
 ### Experiment 6 — Custom Widgets and Themes
 
-![Experiment 6 output: reusable themed nutrient cards](outputs/exp6_output.svg)
+![Experiment 6 output: reusable themed nutrient cards](docs/slides/readme/exp-06.jpg)
 
 ### Experiment 7 — Forms, Validation and Error Handling
 
-![Experiment 7 output: food entry validation and a recoverable demonstration save error](outputs/exp7_output.svg)
+![Experiment 7 output: food entry validation and a recoverable demonstration save error](docs/slides/readme/exp-07.jpg)
 
 ### Experiment 8 — Animations
 
-![Experiment 8 output: nutrient summary fading and sliding into view with a replay button](outputs/exp8_output.svg)
+![Experiment 8 output: nutrient summary fading and sliding into view with a replay button](docs/slides/readme/exp-08.jpg)
 
 ## Experiment Files
 

@@ -28,6 +28,6 @@ The README follows the eight-experiment sequence with output images. Each exampl
 
 Open [Experiments 1–8](../README.md#experiments-18) for the output previews and [run instructions](../README.md#run-the-app-or-an-experiment).
 
-The SVGs in `outputs/` are illustrative previews of the experiment output, not captured Flutter screenshots. They contain interface content and terminal output rather than code listings or explanatory slide text.
+The README embeds the uploaded JPEG slides in `docs/slides/readme/`. Their editable SVG sources are in `outputs/`. These are illustrative previews of the experiment output, not captured Flutter screenshots. They contain interface content and terminal output rather than code listings or explanatory slide text.
 
 The experiments are isolated from the main app. Named routes, Provider state, and the replayable animation demonstrate the lesson concepts without changing the tracker's navigation, persistence, or state model. Experiment 7 deliberately offers a simulated save failure so validation and recovery can be exercised without a backend.
