@@ -1,239 +1,91 @@
-# NutriDay
+# NutriDay — Nutrient Tracker (Flutter)
 
-**Built with Flutter. App source is written in Dart.**
+## Abstract
 
-NutriDay is a cross-platform nutrient tracker. The Flutter app records meals, calories, nutrients, hydration, and daily goals, then saves each day's data locally on the device.
+NutriDay is a cross-platform nutrient tracker built with Flutter and Dart. It helps users record meals, track calories and macronutrients, log water, set daily goals, and review their nutrition in Insights. Food entries are grouped into breakfast, lunch, dinner, and snacks, with separate records for each date.
 
-> The old browser app has been removed. The Flutter entry point is `lib/main.dart`; there are no JavaScript, CSS, or HTML app source files. GitHub identifies programming languages, so its language label will say **Dart**. Flutter is the framework shown above.
+The application uses Flutter's Material interface and stores daily logs and goals locally with `shared_preferences`. The experiments below demonstrate Flutter concepts using NutriDay's food, hydration, and nutrient-goal examples.
 
-## Run the app
+## Experiments 1–8
 
-1. Install the Flutter SDK.
-2. From the repository root, generate runner files for the platform you want to use. For Android and iOS, run `flutter create --platforms=android,ios .`.
-3. Fetch packages with `flutter pub get`.
-4. Start the app with `flutter run`.
+The images show illustrative output for the matching runnable [experiment files](#experiment-files).
 
-Flutter generates platform runner files for the selected target. The app interface and behavior remain in Dart under `lib/`.
+### Experiment 1 — Dart Basics
 
-## App features
+![Experiment 1 output: Greek yogurt, 280 calories, 20.5 grams of protein, no note, and 400 total calories](outputs/exp1_output.svg)
 
-- Log food under breakfast, lunch, dinner, or snacks.
-- Track calories, protein, carbohydrates, fat, fiber, and water.
-- Navigate between dates; meals and water are stored per day.
-- Set personal nutrient goals and view progress in Insights.
-- Save the tracker locally with `shared_preferences`.
-- Start with a sample meal log on first launch.
+### Experiment 2 — Flutter Widgets and Layouts
 
-## Flutter learning slides
+![Experiment 2 output: NutriDay dashboard using Row, Column, and Stack](outputs/exp2_output.svg)
 
-The seven slide lessons below follow the matching experiments in order. Each section includes the slide's explanation, key idea, and Dart code example. All examples are Dart.
+### Experiment 3 — Responsive UI
 
-### EXP 1 — Dart Basics
+![Experiment 3 output: nutrient cards arranged for compact, tablet, and desktop widths](outputs/exp3_output.svg)
 
-![Experiment 1 slide: Dart Basics](docs/slides/exp-01.jpg)
+### Experiment 4 — Navigation and Named Routes
 
-Dart is the programming language used to write Flutter apps. Types describe values your code handles: `int`, `double`, `String`, `bool`, `List`, and `Map`. Use `final` for a value assigned once at runtime and `const` for a compile-time constant. A nullable type such as `String?` can hold `null`, so check for absence before using it.
+![Experiment 4 output: navigation between Today and Insights](outputs/exp4_output.svg)
 
-**Slide code — values, null safety, and a function:**
+### Experiment 5 — Stateful & Stateless Widgets + State Management
 
-```dart
-final foodName = 'Greek yogurt';
-int calories = 280;
-double proteinGrams = 20.5;
-String? note;
+![Experiment 5 output: local water counter and a shared calorie goal](outputs/exp5_output.svg)
 
-int addCalories(int first, int second) {
-  return first + second;
-}
+### Experiment 6 — Custom Widgets and Themes
 
-final total = addCalories(calories, 120);
-```
+![Experiment 6 output: reusable themed nutrient cards](outputs/exp6_output.svg)
 
-**Key idea:** Types and null safety make assumptions visible.
+### Experiment 7 — Forms, Validation and Error Handling
 
-### EXP 2 — Flutter Widgets and Layouts
+![Experiment 7 output: food entry validation and a recoverable demonstration save error](outputs/exp7_output.svg)
 
-![Experiment 2 slide: Flutter Widgets and Layouts](docs/slides/exp-02.jpg)
+### Experiment 8 — Animations
 
-Flutter builds a screen by composing small widgets into a tree. `Text`, buttons, spacing, and entire screens are widgets with focused roles. Use `Row` and `Column` for layout direction, `Padding` for space, and `ListView` for scrolling. `Expanded` and `Flexible` help children share the available room.
+![Experiment 8 output: nutrient summary fading and sliding into view with a replay button](outputs/exp8_output.svg)
 
-**Slide widget tree:**
+## Experiment Files
 
 ```text
-MaterialApp
-└── Scaffold
-    ├── AppBar(title: Text('Today'))
-    └── ListView
-        ├── Padding
-        │   └── Text('Daily energy')
-        ├── Row
-        │   ├── CalorieSummary()
-        │   └── WaterCard()
-        └── MealList()
+experiments/
+├── 01_dart_basics.dart
+├── 02_widgets_layouts.dart
+├── 03_responsive_ui.dart
+├── 04_navigation_named_routes.dart
+├── 05_setstate_counter.dart
+├── 05_state_management.dart
+├── 06_custom_widgets_themes.dart
+├── 07_forms_validation.dart
+├── 08_animations.dart
+├── experiment_theme.dart
+└── nutrient_goals.dart
 ```
 
-**Equivalent Dart layout:**
+## Run the App or an Experiment
 
-```dart
-Scaffold(
-  appBar: AppBar(title: const Text('Today')),
-  body: ListView(
-    children: [
-      const Padding(
-        padding: EdgeInsets.all(16),
-        child: Text('Daily energy'),
-      ),
-      const Row(
-        children: [
-          Expanded(child: CalorieSummary()),
-          Expanded(child: WaterCard()),
-        ],
-      ),
-      const MealList(),
-    ],
-  ),
-)
+Install the Flutter SDK, then run these commands from the repository root:
+
+```sh
+flutter create --platforms=android,ios,web .
+flutter pub get
+flutter run -t lib/main.dart
 ```
 
-**Key idea:** Compose widgets first; extract repeated pieces when useful.
+Run Dart basics in the terminal:
 
-### EXP 3 — Responsive UI
-
-![Experiment 3 slide: Responsive UI](docs/slides/exp-03.jpg)
-
-Responsive layouts use the available space to decide how content should appear. `LayoutBuilder` provides the width available to a subtree, including inside split panes. A compact screen can stack cards, while a wider screen can show them in columns. Use `Expanded`, `Flexible`, `Wrap`, and scroll views to prevent overflow when text or labels grow.
-
-**Slide code — choose the grid columns from width:**
-
-```dart
-LayoutBuilder(
-  builder: (context, constraints) {
-    final columns = constraints.maxWidth >= 720 ? 2 : 1;
-
-    return GridView.count(
-      crossAxisCount: columns,
-      shrinkWrap: true,
-      children: nutrientCards,
-    );
-  },
-)
+```sh
+dart run experiments/01_dart_basics.dart
 ```
 
-**Key idea:** Respond to constraints, not a device model.
+Run a Flutter experiment by selecting its entry point:
 
-### EXP 4 — Navigation and Named Routes
-
-![Experiment 4 slide: Navigation and Named Routes](docs/slides/exp-04.jpg)
-
-Named routes give each destination a stable name. `MaterialApp` maps route names such as `/` and `/insights` to page builders. `Navigator.pushNamed` opens a destination, and `Navigator.pop` returns to the previous page. Define and validate any arguments that a destination expects.
-
-**Slide code — register routes and navigate:**
-
-```dart
-MaterialApp(
-  initialRoute: '/',
-  routes: {
-    '/': (_) => const TodayPage(),
-    '/insights': (_) => const InsightsPage(),
-  },
-);
-
-// Open the Insights page from a button callback:
-Navigator.pushNamed(context, '/insights');
+```sh
+flutter run -t experiments/02_widgets_layouts.dart
+flutter run -t experiments/03_responsive_ui.dart
+flutter run -t experiments/04_navigation_named_routes.dart
+flutter run -t experiments/05_setstate_counter.dart
+flutter run -t experiments/05_state_management.dart
+flutter run -t experiments/06_custom_widgets_themes.dart
+flutter run -t experiments/07_forms_validation.dart
+flutter run -t experiments/08_animations.dart
 ```
 
-**Key idea:** Route names separate a destination from the button that opens it.
-
-### EXP 5 — Stateful and Stateless Widgets + State Management
-
-![Experiment 5 slide: Stateful and Stateless Widgets + State Management](docs/slides/exp-05.jpg)
-
-Use a `StatelessWidget` when a widget renders the inputs it receives and owns no changing state. A `StatefulWidget` can hold local state, such as a selected tab; calling `setState` schedules a rebuild. Move values used across screens into a shared model or state layer that notifies listeners.
-
-**Slide code — local and shared state:**
-
-```dart
-setState(() {
-  selectedMeal = 'Lunch';
-});
-
-class Goals extends ChangeNotifier {
-  int calories = 2000;
-
-  void updateCalories(int value) {
-    calories = value;
-    notifyListeners();
-  }
-}
-```
-
-**Key idea:** Keep state at the lowest level that needs to share it.
-
-### EXP 6 — Custom Widgets and Themes
-
-![Experiment 6 slide: Custom Widgets and Themes](docs/slides/exp-06.jpg)
-
-Extract a custom widget when it makes repeated interface elements clearer or reusable. Named parameters make its inputs clear at the call site. Use `ThemeData` and `ColorScheme` to keep colors and text styles consistent across screens.
-
-**Slide code — reusable nutrient widget:**
-
-```dart
-class NutrientTile extends StatelessWidget {
-  const NutrientTile({
-    required this.label,
-    required this.value,
-    super.key,
-  });
-
-  final String label;
-  final double value;
-
-  @override
-  Widget build(BuildContext context) => ListTile(
-        title: Text(label),
-        trailing: Text('${value.toStringAsFixed(0)} g'),
-      );
-}
-```
-
-**Key idea:** Extract a widget when it improves reuse or clarity.
-
-### EXP 7 — Forms, Validation, and Error Handling
-
-![Experiment 7 slide: Forms, Validation, and Error Handling](docs/slides/exp-07.jpg)
-
-Use a `Form` and `GlobalKey<FormState>` to validate input before saving. Field validators should explain what needs fixing, with the message next to the invalid field. Saving data is asynchronous work: use `try`/`catch` for storage or network failures, keep the user's input visible, and offer a retry.
-
-**Slide code — validate a field and handle a failed save:**
-
-```dart
-final formKey = GlobalKey<FormState>();
-
-TextFormField(
-  decoration: const InputDecoration(
-    labelText: 'Food name',
-  ),
-  validator: (value) =>
-      value == null || value.trim().isEmpty
-          ? 'Enter a food name'
-          : null,
-);
-
-if (formKey.currentState!.validate()) {
-  try {
-    await repository.save(entry);
-  } catch (_) {
-    showError('Could not save. Try again.');
-  }
-}
-```
-
-**Key idea:** Validation guards input; error handling covers failed work.
-
-## Project files
-
-- `lib/main.dart` — Flutter app entry point, screens, and local state.
-- `pubspec.yaml` — Flutter package metadata and Dart dependencies.
-- `docs/FLUTTER_CONCEPTS.md` — implementation notes and links to these lessons.
-
-The repository's application code is Flutter/Dart. Markdown and YAML files provide documentation and Flutter project configuration.
+The learning experiments are separate demonstrations. The main tracker remains in [`lib/main.dart`](lib/main.dart); its data is saved locally. See [Flutter and Dart Concepts](docs/FLUTTER_CONCEPTS.md) for the lesson mapping.

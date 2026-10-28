@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="610" viewBox="0 0 1000 610" role="img" aria-labelledby="title desc">
+  <title id="title">NutriDay fade and slide animation output</title>
+  <desc id="desc">Three successive positions show the daily energy card becoming opaque and sliding into place, followed by the Replay button.</desc>
+  <rect width="1000" height="610" rx="24" fill="#F7F8F4"/>
+  <rect x="28" y="28" width="944" height="554" rx="24" fill="white" stroke="#E8ECE5"/>
+  <path d="M52 28H948Q972 28 972 52V118H28V52Q28 28 52 28" fill="#426B50"/>
+  <g font-family="Arial,sans-serif" fill="#25332A">
+    <text x="60" y="85" font-size="30" font-weight="bold" fill="white">Daily summary</text>
+    <g opacity="0.2" transform="translate(67 267)"><rect width="235" height="200" rx="20" fill="#EDF3E9" stroke="#DCE6D5"/><circle cx="117" cy="48" r="23" fill="#D6E4CB"/><path d="M107 49L115 57L129 41" fill="none" stroke="#426B50" stroke-width="3" stroke-linecap="round"/><text x="117" y="106" text-anchor="middle" font-size="22">Daily energy</text><text x="117" y="157" text-anchor="middle" font-size="37" font-weight="bold">400 <tspan font-size="18" font-weight="normal">kcal</tspan></text></g>
+    <path d="M327 340H354M344 330L354 340L344 350" fill="none" stroke="#A6B5A1" stroke-width="3" stroke-linecap="round"/>
+    <g opacity="0.55" transform="translate(382 225)"><rect width="235" height="200" rx="20" fill="#EDF3E9" stroke="#DCE6D5"/><circle cx="117" cy="48" r="23" fill="#D6E4CB"/><path d="M107 49L115 57L129 41" fill="none" stroke="#426B50" stroke-width="3" stroke-linecap="round"/><text x="117" y="106" text-anchor="middle" font-size="22">Daily energy</text><text x="117" y="157" text-anchor="middle" font-size="37" font-weight="bold">400 <tspan font-size="18" font-weight="normal">kcal</tspan></text></g>
+    <path d="M642 310H669M659 300L669 310L659 320" fill="none" stroke="#A6B5A1" stroke-width="3" stroke-linecap="round"/>
+    <g transform="translate(697 183)"><rect width="235" height="200" rx="20" fill="#EDF3E9" stroke="#DCE6D5"/><circle cx="117" cy="48" r="23" fill="#D6E4CB"/><path d="M107 49L115 57L129 41" fill="none" stroke="#426B50" stroke-width="3" stroke-linecap="round"/><text x="117" y="106" text-anchor="middle" font-size="22">Daily energy</text><text x="117" y="157" text-anchor="middle" font-size="37" font-weight="bold">400 <tspan font-size="18" font-weight="normal">kcal</tspan></text></g>
+    <rect x="700" y="446" width="230" height="57" rx="16" fill="#426B50"/><path d="M753 478A10 10 0 1 1 757 465M756 458V466H748" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><text x="829" y="482" text-anchor="middle" font-size="22" fill="white">Replay</text>
+  </g>
+</svg>

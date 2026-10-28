@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="660" viewBox="0 0 900 660" role="img" aria-labelledby="title desc">
+  <title id="title">NutriDay widgets and layouts output</title>
+  <desc id="desc">Today dashboard with daily energy and water cards in a row, and a breakfast meal with an overlapping check badge below.</desc>
+  <rect width="900" height="660" rx="24" fill="#F7F8F4"/>
+  <rect x="32" y="28" width="836" height="604" rx="24" fill="white" stroke="#E8ECE5"/>
+  <path d="M56 28H844Q868 28 868 52V110H32V52Q32 28 56 28" fill="#426B50"/>
+  <g font-family="Arial,sans-serif">
+    <text x="64" y="78" fill="white" font-size="30" font-weight="bold">Today</text>
+    <text x="64" y="167" font-size="24" font-weight="bold" fill="#25332A">Daily energy</text>
+    <rect x="64" y="193" width="365" height="193" rx="20" fill="#EDF3E9"/>
+    <text x="90" y="238" font-size="19" fill="#667A69">Calories</text>
+    <text x="90" y="300" font-size="43" font-weight="bold" fill="#25332A">400 <tspan font-size="21" font-weight="normal">kcal</tspan></text>
+    <rect x="90" y="332" width="310" height="10" rx="5" fill="#D8E4D3"/>
+    <rect x="90" y="332" width="62" height="10" rx="5" fill="#426B50"/>
+    <rect x="449" y="193" width="387" height="193" rx="20" fill="#EFF5F6"/>
+    <text x="477" y="238" font-size="19" fill="#667A69">Water</text>
+    <text x="477" y="300" font-size="43" font-weight="bold" fill="#25332A">2 / 8</text>
+    <text x="477" y="346" font-size="19" fill="#667A69">glasses</text>
+    <text x="64" y="446" font-size="23" font-weight="bold" fill="#25332A">Breakfast</text>
+    <rect x="64" y="470" width="772" height="114" rx="18" fill="#F7F8F4" stroke="#E8ECE5"/>
+    <circle cx="112" cy="527" r="26" fill="#E0EAD9"/>
+    <path d="M96 521Q112 552 128 521Z" fill="#426B50"/><path d="M97 516H127" stroke="#426B50" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="133" cy="546" r="11" fill="#426B50" stroke="#F7F8F4" stroke-width="2"/><path d="M128 546L132 550L138 542" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="158" y="520" font-size="25" font-weight="bold" fill="#25332A">Greek yogurt</text>
+    <text x="158" y="552" font-size="18" fill="#667A69">20.5 g protein</text>
+    <text x="804" y="536" text-anchor="end" font-size="25" font-weight="bold" fill="#426B50">280 kcal</text>
+  </g>
+</svg>
