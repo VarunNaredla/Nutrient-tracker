@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="650" viewBox="0 0 900 650" role="img" aria-labelledby="title desc">
+  <title id="title">NutriDay reusable nutrient tiles and theme output</title>
+  <desc id="desc">Three consistently styled nutrient rows show protein rounded from 20.5 to 21 grams, carbohydrates 42 grams, and fat 12 grams.</desc>
+  <rect width="900" height="650" rx="24" fill="#F7F8F4"/>
+  <rect x="180" y="28" width="540" height="594" rx="26" fill="white" stroke="#E8ECE5" stroke-width="2"/>
+  <path d="M206 28H694Q720 28 720 54V121H180V54Q180 28 206 28" fill="#426B50"/>
+  <g font-family="Arial,sans-serif" fill="#25332A">
+    <text x="216" y="87" font-size="31" font-weight="bold" fill="white">Nutrients</text>
+    <rect x="212" y="163" width="476" height="112" rx="18" fill="#F7F8F4" stroke="#E8ECE5"/>
+    <rect x="212" y="299" width="476" height="112" rx="18" fill="#F7F8F4" stroke="#E8ECE5"/>
+    <rect x="212" y="435" width="476" height="112" rx="18" fill="#F7F8F4" stroke="#E8ECE5"/>
+    <g fill="#E3ECDE"><circle cx="258" cy="219" r="23"/><circle cx="258" cy="355" r="23"/><circle cx="258" cy="491" r="23"/></g>
+    <g fill="none" stroke="#426B50" stroke-width="2.5" stroke-linecap="round"><path d="M247 224C244 214 251 202 258 202S272 214 269 224C267 235 249 235 247 224Z"/><path d="M258 369V343M258 353Q243 354 246 345Q256 345 258 353M258 361Q273 362 270 353Q260 353 258 361"/><path d="M258 474C254 482 247 489 247 496A11 11 0 0 0 269 496C269 489 262 482 258 474Z"/></g>
+    <g font-size="27"><text x="302" y="229">Protein</text><text x="302" y="365">Carbs</text><text x="302" y="501">Fat</text></g>
+    <g text-anchor="end" font-size="29" font-weight="bold" fill="#426B50"><text x="658" y="229">21 g</text><text x="658" y="365">42 g</text><text x="658" y="501">12 g</text></g>
+  </g>
+</svg>

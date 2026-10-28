@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="710" viewBox="0 0 1000 710" role="img" aria-labelledby="title desc">
+  <title id="title">NutriDay form validation and failed save output</title>
+  <desc id="desc">Empty food fields show validation errors. A valid Greek yogurt entry retains its name and 280 calories after a simulated save failure, with a Retry action.</desc>
+  <rect width="1000" height="710" rx="24" fill="#F7F8F4"/>
+  <g font-family="Arial,sans-serif" fill="#25332A">
+    <rect x="30" y="30" width="440" height="650" rx="24" fill="white" stroke="#E8ECE5" stroke-width="2"/>
+    <rect x="530" y="30" width="440" height="650" rx="24" fill="white" stroke="#E8ECE5" stroke-width="2"/>
+    <path d="M54 30H446Q470 30 470 54V118H30V54Q30 30 54 30M554 30H946Q970 30 970 54V118H530V54Q530 30 554 30" fill="#426B50"/>
+    <text x="60" y="86" font-size="29" font-weight="bold" fill="white">Add food</text><text x="560" y="86" font-size="29" font-weight="bold" fill="white">Add food</text>
+    <rect x="60" y="164" width="380" height="72" rx="12" fill="#FFFAF8" stroke="#B34C38" stroke-width="2"/>
+    <text x="79" y="207" font-size="21" fill="#8C6459">Food name</text><text x="76" y="265" font-size="17" fill="#B34C38">Enter a food name</text>
+    <rect x="60" y="297" width="380" height="72" rx="12" fill="#FFFAF8" stroke="#B34C38" stroke-width="2"/>
+    <text x="79" y="340" font-size="21" fill="#8C6459">Calories</text><text x="76" y="398" font-size="17" fill="#B34C38">Enter calories greater than 0</text>
+    <rect x="560" y="164" width="380" height="72" rx="12" fill="#F7F8F4" stroke="#A6B5A1"/>
+    <text x="578" y="182" font-size="14" fill="#667A69">Food name</text><text x="579" y="214" font-size="23">Greek yogurt</text>
+    <rect x="560" y="297" width="380" height="72" rx="12" fill="#F7F8F4" stroke="#A6B5A1"/>
+    <text x="578" y="315" font-size="14" fill="#667A69">Calories</text><text x="579" y="347" font-size="23">280</text>
+    <text x="60" y="455" font-size="18">Simulate one save failure</text><text x="560" y="455" font-size="18">Simulate one save failure</text>
+    <rect x="385" y="434" width="55" height="30" rx="15" fill="#DCE3D8"/><circle cx="400" cy="449" r="11" fill="white"/>
+    <rect x="885" y="434" width="55" height="30" rx="15" fill="#DCE3D8"/><circle cx="900" cy="449" r="11" fill="white"/>
+    <rect x="60" y="494" width="380" height="57" rx="15" fill="#426B50"/><text x="250" y="530" text-anchor="middle" font-size="22" fill="white">Save food</text>
+    <rect x="560" y="494" width="380" height="57" rx="15" fill="#426B50"/><text x="750" y="530" text-anchor="middle" font-size="22" fill="white">Save food</text>
+    <rect x="548" y="592" width="404" height="63" rx="13" fill="#293A2F"/><text x="567" y="630" font-size="18" fill="white">Could not save. Try again.</text><text x="929" y="630" text-anchor="end" font-size="18" fill="#CAE3B6" font-weight="bold">Retry</text>
+  </g>
+</svg>

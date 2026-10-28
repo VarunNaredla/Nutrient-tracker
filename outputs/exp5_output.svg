@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="680" viewBox="0 0 900 680" role="img" aria-labelledby="title desc">
+  <title id="title">NutriDay local and shared state output</title>
+  <desc id="desc">The water counter shows three of eight glasses after adding a glass. The separate shared-goals example updates both Today and Insights to 2200 calories.</desc>
+  <rect width="900" height="680" rx="24" fill="#F7F8F4"/>
+  <g font-family="Arial,sans-serif" fill="#25332A">
+    <rect x="30" y="28" width="360" height="624" rx="24" fill="white" stroke="#E8ECE5"/>
+    <rect x="420" y="28" width="450" height="624" rx="24" fill="white" stroke="#E8ECE5"/>
+    <path d="M54 28H366Q390 28 390 52V111H30V52Q30 28 54 28M444 28H846Q870 28 870 52V111H420V52Q420 28 444 28" fill="#426B50"/>
+    <text x="60" y="80" font-size="29" font-weight="bold" fill="white">Water</text>
+    <text x="450" y="80" font-size="29" font-weight="bold" fill="white">Daily goals</text>
+    <path d="M210 186C202 200 174 228 174 250A36 36 0 0 0 246 250C246 228 218 200 210 186" fill="#426B50"/>
+    <text x="210" y="357" text-anchor="middle" font-size="36" font-weight="bold">3 / 8 glasses</text>
+    <rect x="80" y="406" width="260" height="56" rx="15" fill="#426B50"/>
+    <path d="M115 434H131M123 426V442" stroke="white" stroke-width="2" stroke-linecap="round"/>
+    <text x="227" y="441" text-anchor="middle" fill="white" font-size="22">Add a glass</text>
+    <text x="210" y="513" text-anchor="middle" fill="#426B50" font-size="21">Reset demo</text>
+    <rect x="450" y="148" width="390" height="139" rx="19" fill="#EDF3E9"/>
+    <rect x="450" y="307" width="390" height="139" rx="19" fill="#EDF3E9"/>
+    <text x="475" y="190" font-size="20" fill="#667A69">Today · calorie goal</text>
+    <text x="475" y="349" font-size="20" fill="#667A69">Insights · calorie goal</text>
+    <text x="475" y="244" font-size="36" font-weight="bold">2200 <tspan font-size="20" font-weight="normal">kcal</tspan></text>
+    <text x="475" y="403" font-size="36" font-weight="bold">2200 <tspan font-size="20" font-weight="normal">kcal</tspan></text>
+    <rect x="450" y="485" width="390" height="58" rx="16" fill="#426B50"/>
+    <text x="645" y="521" text-anchor="middle" fill="white" font-size="22">Set goal to 2,200 kcal</text>
+    <text x="645" y="591" text-anchor="middle" fill="#426B50" font-size="21">Reset demo</text>
+  </g>
+</svg>
